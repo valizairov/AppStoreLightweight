@@ -1,0 +1,22 @@
+{
+  'song': [
+    {
+      id: 1469577741,
+      name: "Pop",
+      artwork: "https://is4-ssl.mzstatic.com/image/thumb/Music123/v4/be/38/d0/be38d058-31ed-c0ea-91e6-12052865fd20/source/100x100bb.jpg",
+      genre: "",
+      url: "https://music.apple.com/us/album/upside-down/1469577723?i=1469577741&uo=4"
+
+    },
+    
+  ],
+  'feature-movie': [
+    {
+      id: 1440857786,
+      name: "Better Together",
+      artwork: "https://is2-ssl.mzstatic.com/image/thumb/Music118/v4/24/46/97/24469731-f56f-29f6-67bd-53438f59ebcb/source/100x100bb.jpg",
+      genre: "Rock",
+      url: "https://music.apple.com/us/album/better-together/1440857781?i=1440857786&uo=4"
+    }
+  ]
+}

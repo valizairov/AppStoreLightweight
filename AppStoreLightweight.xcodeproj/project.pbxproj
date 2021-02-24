@@ -15,6 +15,7 @@
 		7B01B50025E60C3F0070EBB2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B01B4FF25E60C3F0070EBB2 /* SearchViewController.swift */; };
 		7B01B50325E60C520070EBB2 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B01B50225E60C520070EBB2 /* FavoritesViewController.swift */; };
 		7B01B50825E60CA10070EBB2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B01B50725E60CA10070EBB2 /* Model.swift */; };
+		7B01B51C25E619480070EBB2 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 7B01B51B25E619480070EBB2 /* sample.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		7B01B4FF25E60C3F0070EBB2 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7B01B50225E60C520070EBB2 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		7B01B50725E60CA10070EBB2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		7B01B51B25E619480070EBB2 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				7B01B4EA25E60B260070EBB2 /* SceneDelegate.swift */,
 				7B01B4F125E60B270070EBB2 /* Assets.xcassets */,
 				7B01B4F325E60B270070EBB2 /* LaunchScreen.storyboard */,
+				7B01B51B25E619480070EBB2 /* sample.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B01B4F525E60B270070EBB2 /* LaunchScreen.storyboard in Resources */,
+				7B01B51C25E619480070EBB2 /* sample.json in Resources */,
 				7B01B4F225E60B270070EBB2 /* Assets.xcassets in Resources */,
 				7B01B4F025E60B260070EBB2 /* Main.storyboard in Resources */,
 			);
