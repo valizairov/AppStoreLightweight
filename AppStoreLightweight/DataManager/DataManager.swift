@@ -12,44 +12,19 @@ final class DataManager {
     static let shared = DataManager()
     private init() {}
     
+    let API = "https://itunes.apple.com/search?term="
+    let searchTerm = "jack+johnson"
+    
     func returnItems() -> [String: [AppStoreItem.Item]] {
         var items: [String: [AppStoreItem.Item]] = [:]
-        if let data = fetchData() {
-            if let obj = data.song {
-                items["Song"] = obj
-            }
-            if let obj = data.book {
-                items["Book"] = obj
-            }
-            if let obj = data.album {
-                items["Album"] = obj
-            }
-            if let obj = data.coachedAudio {
-                items["Coached Audio"] = obj
-            }
-            if let obj = data.featureMovie {
-                items["Feature Movie"] = obj
-            }
-            if let obj = data.interactiveBooklet {
-                items["Interactive Booklet"] = obj
-            }
-            if let obj = data.musicVideo {
-                items["Music Video"] = obj
-            }
-            if let obj = data.pdfPodcast {
-                items["PDF Podcast"] = obj
-            }
-            if let obj = data.podcastEpisode {
-                items["Podcast Episode"] = obj
-            }
-            if let obj = data.softwarePackage {
-                items["Software Package"] = obj
-            }
-            if let obj = data.tvEpisode {
-                items["TV Episode"] = obj
-            }
-            if let obj = data.artist {
-                items["Artist"] = obj
+        if let data = fetchData(), let results = data.results {
+            for item in results {
+                let type = item.kind
+                if items[type] != nil {
+                    items[type]?.append(item)
+                } else {
+                    items[type] = [item]
+                }
             }
         }
         return items

@@ -7,32 +7,10 @@
 
 struct AppStoreItem: Decodable {
     
-    var song: [Item]?
-    var book: [Item]?
-    var album: [Item]?
-    var coachedAudio: [Item]?
-    var featureMovie: [Item]?
-    var interactiveBooklet: [Item]?
-    var musicVideo: [Item]?
-    var pdfPodcast: [Item]?
-    var podcastEpisode: [Item]?
-    var softwarePackage: [Item]?
-    var tvEpisode: [Item]?
-    var artist: [Item]?
+    var results: [Item]?
     
     enum CodingKeys: String, CodingKey {
-        case song
-        case book
-        case album
-        case coachedAudio = "coached-audio"
-        case featureMovie = "feature-movie"
-        case interactiveBooklet = "interactive-booklet"
-        case musicVideo = "music-video"
-        case pdfPodcast = "pdf podcast"
-        case podcastEpisode = "podcast-episode"
-        case softwarePackage = "software-package"
-        case tvEpisode = "tv-episode"
-        case artist = "artist"
+        case results
     }
     
     struct Item: Decodable {
@@ -41,9 +19,15 @@ struct AppStoreItem: Decodable {
         var artwork: String
         var genre: String
         var url: String
+        var kind: String
         
         enum  CodingKeys: String, CodingKey {
-            case id, name, artwork, genre, url
+            case id = "trackId"
+            case name = "trackName"
+            case artwork = "artworkUrl30"
+            case genre = "primaryGenreName"
+            case url = "trackViewUrl"
+            case kind
         }
         
         init(from decoder: Decoder) throws {
@@ -53,6 +37,7 @@ struct AppStoreItem: Decodable {
             artwork = try container.decode(String.self, forKey: .artwork)
             genre = try container.decode(String.self, forKey: .genre)
             url = try container.decode(String.self, forKey: .url)
+            kind = try container.decode(String.self, forKey: .kind)
         }
     }
 }
