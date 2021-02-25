@@ -12,16 +12,35 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var tableView: UITableView!
     
-    var items: AppStoreItem?
+    var items: [String: [AppStoreItem.Item]] = [:]
+    var indexes: [Int: Int] = [:] //how many items per section
+    var sectionNames: [String] = []
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return items.count
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items?.song?.count ?? 0
+        var i = 0
+        for (k, v) in items {
+            indexes[i] = v.count
+            i += 1
+            sectionNames.append(k)
+        }
+        return indexes[section] ?? 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if sectionNames.count > 0 {
+            return sectionNames[section]
+        }
+        return ""
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "cellSearch", for: indexPath) as! CustomCell
-        if let item = items?.song?[indexPath.row] {
-            //cell.artWorkImageView =
+        let sectionName = sectionNames[indexPath.section]
+        if let item = items[sectionName]?[indexPath.row] {
             cell.titleLabel.text = item.name
             cell.genreLabel.text = item.genre
             cell.linkLabel.text = item.url
@@ -43,9 +62,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.global().async { [weak self] in
-            let model = DataManager.shared.fetchData()
+            let model = DataManager.shared.returnItems()
             self?.items = model
-            
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
