@@ -12,21 +12,21 @@ final class DataManager {
     static let shared = DataManager()
     private init() {}
 
-    func fetchData() {
+    func fetchData() -> AppStoreItem? {
         print("fetching the data")
         guard let fileURL = Bundle.main.url(forResource: "sample", withExtension: "json") else {
             print("couldn't find the file")
-            return
+            return nil
         }
         
         do {
             let data = try Data(contentsOf: fileURL)
             let model = try JSONDecoder().decode(AppStoreItem.self, from: data)
-            print(model)
+            return model
 
         } catch let error {
             print(error)
-            return
+            return nil
         }
         
     }
