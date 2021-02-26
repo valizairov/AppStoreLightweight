@@ -17,36 +17,32 @@ final class DataManager {
     
     func returnItems() -> [String: [AppStoreItem.Item]] {
         var items: [String: [AppStoreItem.Item]] = [:]
-        if let data = fetchData(), let results = data.results {
-            for item in results {
-                let type = item.kind
-                if items[type] != nil {
-                    items[type]?.append(item)
-                } else {
-                    items[type] = [item]
+        fetchData(completion: { (appStoreItem) in
+            if let appStoreItem = appStoreItem, let results = appStoreItem.results {
+                for item in results {
+                    let type = item.kind
+                    if items[type] != nil {
+                        items[type]?.append(item)
+                    } else {
+                        items[type] = [item]
+                    }
                 }
             }
-        }
+        })
         return items
     }
 
-    func fetchData() -> AppStoreItem? {
-        print("fetching the data")
-        guard let fileURL = Bundle.main.url(forResource: "sample", withExtension: "json") else {
-            print("couldn't find the file")
-            return nil
+    private func fetchData(completion: (AppStoreItem?) -> ()) {
+        var model: AppStoreItem?
+        if let url = URL(string: "\(API)\(searchTerm)") {
+            do {
+                let data = try? Data(contentsOf: url)
+                model = try JSONDecoder().decode(AppStoreItem.self, from: data!)
+                completion(model)
+            } catch {
+                print("problem with data from server")
+                completion(nil)
+            }
         }
-        
-        do {
-            let data = try Data(contentsOf: fileURL)
-            let model = try JSONDecoder().decode(AppStoreItem.self, from: data)
-            return model
-
-        } catch let error {
-            print(error)
-            return nil
-        }
-        
     }
-    
 }
