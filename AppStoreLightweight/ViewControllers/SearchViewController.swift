@@ -22,10 +22,17 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                 self?.tableView.reloadData()
             }
         }
-
+    }
+    
+    
+    @IBAction func markAsFavorite(_ sender: UIButton) {
+        print("id: \(sender.tag), itemName: \(favorites[sender.tag])")
+        //Save to UserDefaults or Plist
+        //Use sets for do/undo favorite action and display
     }
     
     var items: [String: [AppStoreItem.Item]] = [:]
+    var favorites: [Int: AppStoreItem.Item] = [:] //to keep track of favorite button
     var indexes: [Int: Int] = [:] //how many items per section
     var sectionNames: [String] = []
 
@@ -57,13 +64,16 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             cell.titleLabel.text = item.name
             cell.genreLabel.text = item.genre
             cell.linkLabel.text = item.url
-            if let imageURL = URL(string: item.artwork) {
+            let favIndex = item.id ?? 0
+            favorites[favIndex] = item
+            if let artwork = item.artwork, let imageURL = URL(string: artwork) {
                 let imageData = try! Data(contentsOf: imageURL)
                 cell.artWorkImageView.image = UIImage(data: imageData)
             } else {
                 //default placeholder
                 cell.artWorkImageView.image = UIImage()
             }
+            cell.favoriteButton.tag = item.id ?? 0
         }
         
         return cell

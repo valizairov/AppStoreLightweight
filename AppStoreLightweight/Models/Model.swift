@@ -14,12 +14,12 @@ struct AppStoreItem: Decodable {
     }
     
     struct Item: Decodable {
-        var id: Int
-        var name: String
-        var artwork: String
-        var genre: String
-        var url: String
-        var kind: String
+        var id: Int?
+        var name: String?
+        var artwork: String?
+        var genre: String?
+        var url: String?
+        var kind: String?
         
         enum  CodingKeys: String, CodingKey {
             case id = "trackId"

@@ -20,7 +20,7 @@ final class DataManager {
         fetchData(searchTerm: searchTerm, completion: { (appStoreItem) in
             if let appStoreItem = appStoreItem, let results = appStoreItem.results {
                 for item in results {
-                    let type = item.kind
+                    let type = item.kind ?? ""
                     if items[type] != nil {
                         items[type]?.append(item)
                     } else {
@@ -37,6 +37,8 @@ final class DataManager {
         if let url = URL(string: "\(API)\(searchTerm)") {
             do {
                 let data = try? Data(contentsOf: url)
+                let str = String(decoding: data!, as: UTF8.self)
+                print(str)
                 model = try JSONDecoder().decode(AppStoreItem.self, from: data!)
                 completion(model)
             } catch {

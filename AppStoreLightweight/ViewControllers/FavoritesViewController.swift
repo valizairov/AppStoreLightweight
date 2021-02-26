@@ -8,6 +8,11 @@
 import UIKit
 
 class FavoritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var items = [AppStoreItem.Item]()
+    
+    //action for removing from userdefaults, reload table.
+    //For smoother UI, use deleteRows at
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -22,6 +27,8 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         print("FavoritesViewController")
+        //load from userDefaults to items array
+        //reload table
     }
     
 
