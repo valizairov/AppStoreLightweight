@@ -13,11 +13,11 @@ final class DataManager {
     private init() {}
     
     let API = "https://itunes.apple.com/search?term="
-    let searchTerm = "jack+johnson"
+    //let searchTerm = "jack+johnson"
     
-    func returnItems() -> [String: [AppStoreItem.Item]] {
+    func returnItems(_ searchTerm: String) -> [String: [AppStoreItem.Item]] {
         var items: [String: [AppStoreItem.Item]] = [:]
-        fetchData(completion: { (appStoreItem) in
+        fetchData(searchTerm: searchTerm, completion: { (appStoreItem) in
             if let appStoreItem = appStoreItem, let results = appStoreItem.results {
                 for item in results {
                     let type = item.kind
@@ -32,7 +32,7 @@ final class DataManager {
         return items
     }
 
-    private func fetchData(completion: (AppStoreItem?) -> ()) {
+    private func fetchData(searchTerm: String, completion: (AppStoreItem?) -> ()) {
         var model: AppStoreItem?
         if let url = URL(string: "\(API)\(searchTerm)") {
             do {
@@ -40,7 +40,7 @@ final class DataManager {
                 model = try JSONDecoder().decode(AppStoreItem.self, from: data!)
                 completion(model)
             } catch {
-                print("problem with data from server")
+                print("Decoding problem")
                 completion(nil)
             }
         }

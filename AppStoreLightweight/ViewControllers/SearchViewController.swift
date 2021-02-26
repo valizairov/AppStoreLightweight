@@ -11,6 +11,19 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBox: UITextField!
+    @IBAction func performSearch(_ sender: Any) {
+        guard let searchTerm = searchBox.text?.replacingOccurrences(of: " ", with: "+")
+        else { return }
+        DispatchQueue.global().async { [weak self] in
+            let model = DataManager.shared.returnItems(searchTerm)
+            self?.items = model
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+
+    }
     
     var items: [String: [AppStoreItem.Item]] = [:]
     var indexes: [Int: Int] = [:] //how many items per section
@@ -38,7 +51,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "cellSearch", for: indexPath) as! CustomCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellSearch", for: indexPath) as! CustomCell
         let sectionName = sectionNames[indexPath.section]
         if let item = items[sectionName]?[indexPath.row] {
             cell.titleLabel.text = item.name
@@ -61,13 +74,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.global().async { [weak self] in
-            let model = DataManager.shared.returnItems()
-            self?.items = model
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
         
     }
 }
